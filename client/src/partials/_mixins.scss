@@ -1,0 +1,16 @@
+@use './variables' as *;
+@use './typography' as *;
+
+// MEDIA QUERIES
+
+@mixin tablet {
+    @media screen and (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media screen and (min-width: 1280px) {
+        @content;
+    }
+}
