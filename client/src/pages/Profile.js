@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { auth } from '../services/firebase';
+import ImageUploader from '../components/ImageUploader/ImageUploader';
+import ImageGrid from '../components/ImageGrid/ImageGrid';
+import ImageModal from '../components/ImageModal/ImageModal';
 
-class Profile extends Component {
-    constructor() {
-        super();
-        this.state = {
-            user: auth().currentUser,
-        }
-    }
-    render() {
-        console.log(this.state.user)
-        return (
-            <div>
-                <div>Login in as: <strong>{this.state.user.email}</strong></div>
-            </div>
-        );
-    }
-}
+const Profile = () => {
+    const [user] = useState(auth().currentUser);
+    const [selectedImg, setSelectedImg] = useState(null);
+    
+    return (
+        <div>
+            <h1>Profile Page - {user.email}</h1>
+            <ImageUploader />
+            <ImageGrid setSelectedImg={setSelectedImg} />
+            { selectedImg && <ImageModal selectedImg={selectedImg} setSelectedImg={setSelectedImg} /> }
+        </div>
+    );
+};
 
 export default Profile;

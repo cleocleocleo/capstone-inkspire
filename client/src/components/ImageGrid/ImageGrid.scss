@@ -1,0 +1,25 @@
+.img-grid {
+    margin: 20px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 2rem;
+    padding: 3rem;
+
+    &__container {
+        // width: 25%;
+        height: 0;
+        overflow: hidden;
+        padding: 50% 0;
+        position: relative;
+        border-radius: 6px;
+    }
+
+    &__img {
+        min-width: 100%;
+        min-height: 100%;
+        max-width: 150%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}
