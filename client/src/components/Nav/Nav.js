@@ -1,19 +1,26 @@
 import './Nav.scss';
 import { Link } from 'react-router-dom';
 import useFirestore from '../../hooks/useFirestore';
+import userIcon from '../../assets/icons/user.svg';
 
 const Nav = ({ user }) => {
     const { docs } = useFirestore('users');
-    const getUser = docs.filter(doc => doc.id === user.uid);
-
+    
+    const checkUser = () => {
+        if (docs[0] && user) {
+        const userData = docs.filter(doc => doc.id === user.uid);
+        return userData[0].profileImg
+        } else {
+            return userIcon
+        }
+    }
+    
     return ( 
         <nav className="nav">
             <Link to="/profile">
                 <div className="nav__profile-container">
-                    { getUser[0] &&
                         <img className="nav__profile-img"
-                        src={getUser[0].profileImg} alt=""/>
-                    }
+                        src={checkUser()} alt=""/>
                 </div>
             </Link>
             <Link to="/">

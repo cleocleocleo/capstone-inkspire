@@ -5,7 +5,6 @@ import ImageModal from '../components/ImageModal/ImageModal';
 
 const Profile = () => {
     const [selectedImg, setSelectedImg] = useState(null);
-
     return (
         <div>
             <h1>Profile Page - </h1>

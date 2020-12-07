@@ -10,12 +10,12 @@ import Search from './pages/Search';
 import { auth } from './services/firebase';
 
 
-function PrivateRoute({ component: Component, authenticated, ...rest }) {
+function PrivateRoute({ component: Component, authenticated, user, ...rest }) {
     return (
         <Route
             {...rest}
-            render={(props) => authenticated === true
-            ? <Component {...props} />
+            render={(props) => (authenticated === true)
+            ? <Component {...props} user={user} />
             : <Redirect to={{ pathname: 'login', state: {from: props.location} }} />}
         />
     )
@@ -35,7 +35,7 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 const App = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [isloading, setIsLoading] = useState(true);
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(null);
 
     useEffect( () => {
         auth().onAuthStateChanged((user) => {
@@ -50,7 +50,7 @@ const App = () => {
         });
     }, []);
 
-    return (isloading === true && !user ) ? <h2>Loading...</h2> : (
+    return isloading === true ? <h2>Loading...</h2> : (
         <BrowserRouter>
             <Nav user={user} />
             <Switch>
