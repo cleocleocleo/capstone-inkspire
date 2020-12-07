@@ -6,7 +6,7 @@ const useStorage = file => {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
     const [url, setUrl] = useState(null);
-    const [user] = useState(auth().currentUser)
+    const [user] = useState(auth().currentUser);
 
     useEffect(() => {
         const storageRef = storage.ref(file.name);

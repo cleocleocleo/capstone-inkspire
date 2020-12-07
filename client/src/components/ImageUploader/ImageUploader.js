@@ -20,17 +20,16 @@ const ImageUploader = () => {
     }
 
     return (
-       <form className="upload">
-            <label>
-                <h3 className="upload__label">Upload Image</h3>
-                <input type="file" onChange={handleChange}/>
-                <div className="upload__output">
-                    { error && <div>{ error }</div> }
-                    { file && <div>{ file.name }</div> }
-                    { file && <ProgressBar file={file} setFile={setFile} />}
-                </div>
-            </label>
-       </form>
+        
+        <form className="upload">
+            <h3 className="upload__label">Upload Image</h3>
+            <input type="file" onChange={handleChange}/>
+            <div className="upload__output">
+                { error && <div>{ error }</div> }
+                { file && <div>{ file.name }</div> }
+                { file && <ProgressBar file={file} setFile={setFile} />}
+            </div>
+        </form>
     );
 };
 

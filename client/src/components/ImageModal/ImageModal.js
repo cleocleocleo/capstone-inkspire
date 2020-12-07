@@ -2,7 +2,6 @@ import './ImageModal.scss';
 import { motion } from 'framer-motion';
 
 const ImageModal = ({ selectedImg, setSelectedImg }) => {
-
     const handleClick = (e) => {
         if (e.target.classList.contains('img-modal')) {
             setSelectedImg(null);
@@ -17,6 +16,7 @@ const ImageModal = ({ selectedImg, setSelectedImg }) => {
             <motion.img className="img-modal__img" src={selectedImg} alt="fullview"
                 initial={{ y: "-100vh" }}
                 animate={{ y: 0 }}
+                transition={{ duration: 0.5 }}
             />
         </motion.div>
     );
