@@ -1,54 +1,78 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { signup } from '../helpers/auth';
 
-export default class SignUp extends Component {
-    constructor() {
-        super();
-        this.state = {
-          error: null,
-          email: '',
-          password: '',
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+const SignUp = () => {
+    const [error, setError] = useState('');
+    const {
+        register,
+        errors,
+        getValues,
+        handleSubmit
+    } = useForm();
 
-    handleChange(event) {
-        const name = event.target.name;
-        this.setState({
-            [name]: event.target.value
-        });
-    };
-
-    async handleSubmit(event) {
-        event.preventDefault();
-        this.setState({ error: '' });
+    const onSubmit = async (data) => {
+        setError('');
         try {
-            await signup(this.state.email, this.state.password);
+            await signup(data.email, data.password);
         } catch (error) {
-            this.setState({ error: error.message });
+            setError(error.message);
         }
-    };
-
-    render() {
-        return (
-            <div className="signup">
-                <form onSubmit={this.handleSubmit}>
-                    <h1>Sign Up</h1>
-                    <label>
-                        <h3 className="signup__form-label">Email</h3>
-                        <input type="text" name="email" placeholder="Email" onChange={this.handleChange}/>
-                    </label>
-                    <label>
-                        <h3 className="signup__form-label">Password</h3>
-                        <input type="password" name="password" placeholder="password" onChange={this.handleChange}/>
-                    </label>
-                    {this.state.error ? <p className="signup__error-text">{this.state.error}</p> : null}
-                    <button className="signup__button">Sign up</button>
-                    <p>Already have an account? <Link to="/login">Login</Link></p>
-                </form>
-            </div>
-        );
     }
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Sign Up</h1>
+            <label>
+                <h3 className="signup__form-label">Email: </h3>
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    ref={register({
+                        required: true,
+                        pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    })}
+                />
+            </label>
+            <label>
+                <h3 className="signup__form-label">Set Password: </h3>
+                <input
+                    name="password"
+                    placeholder="Password"
+                    ref={register({ required: "Password is required!" })}
+                />
+                {errors.password && (
+                    <p>{errors.password.message}</p>
+                )}
+            </label>
+            <label>
+                <h3 className="signup__form-label">Confirm Password: </h3>
+                <input
+                    name="passwordConfirmation"
+                    placeholder="Retype Password"
+                    ref={register({
+                        required: "Please confirm password!",
+                        validate: {
+                            matchesPreviousPassword: value => {
+                                const { password } = getValues();
+                                return password === value || "Passwords should match!";
+                            }
+                        }
+                    })}
+                />
+                {errors.passwordConfirmation && (
+                    <p>
+                        {errors.passwordConfirmation.message}
+                    </p>
+                )}
+            </label>
+            {error ? <p className="signup__error-text">{error}</p> : null}
+            <p>Already have an account? <Link to="/login">Login</Link></p>
+            <button type="submit">Sign Up</button>
+        </form>
+    );
 }
+
+export default SignUp;

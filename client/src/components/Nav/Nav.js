@@ -7,8 +7,8 @@ const Nav = ({ userID }) => {
     const { docs } = useFirestoreCol('users');
 
     const checkUser = () => {
-        if (docs[0] && userID) {
-            const userData = docs.filter(doc => doc.id === userID);
+        const userData = docs.filter(doc => doc.id === userID);
+        if (userData[0]) {
             return userData[0].profileImg
         } else {
             return userIcon
