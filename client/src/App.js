@@ -7,15 +7,15 @@ import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Search from './pages/Search';
+import Gallery from './components/Gallery/Gallery';
 import { auth } from './services/firebase';
 
-
-function PrivateRoute({ component: Component, authenticated, user, ...rest }) {
+function PrivateRoute({ component: Component, authenticated, userID, ...rest }) {
     return (
         <Route
             {...rest}
             render={(props) => (authenticated === true)
-            ? <Component {...props} user={user} />
+            ? <Component {...props} userID={userID} />
             : <Redirect to={{ pathname: 'login', state: {from: props.location} }} />}
         />
     )
@@ -35,14 +35,14 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 const App = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [isloading, setIsLoading] = useState(true);
-    const [user, setUser] = useState(null);
+    const [userID, setUserID] = useState(null);
 
     useEffect( () => {
         auth().onAuthStateChanged((user) => {
             if (user) {
                 setAuthenticated(true);
                 setIsLoading(false);
-                setUser(user)
+                setUserID(user.uid);
             } else {
                 setAuthenticated(false);
                 setIsLoading(false);
@@ -52,13 +52,14 @@ const App = () => {
 
     return isloading === true ? <h2>Loading...</h2> : (
         <BrowserRouter>
-            <Nav user={user} />
+            <Nav userID={userID} />
             <Switch>
                 <PrivateRoute exact path="/" authenticated={authenticated} component={Home}></PrivateRoute>
-                <PrivateRoute path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
+                <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
                 <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
                 <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
                 <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
+                <Route path="/profile/:gallery" component={Gallery} />
             </Switch>
         </BrowserRouter>
     );

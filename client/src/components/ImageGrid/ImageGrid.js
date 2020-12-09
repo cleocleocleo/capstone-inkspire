@@ -1,9 +1,9 @@
 import './ImageGrid.scss';
-import useFirestore from '../../hooks/useFirestore';
+import useFirestoreCol from '../../hooks/useFirestore';
 import { motion } from 'framer-motion';
 
 const ImageGrid = ({ setSelectedImg }) => {
-    const { docs } = useFirestore('images');
+    const { docs } = useFirestoreCol('images');
 
     return (
         <div className="img-grid">
