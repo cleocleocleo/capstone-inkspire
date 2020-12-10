@@ -59,7 +59,7 @@ const App = () => {
                 <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
                 <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
                 <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
-                <Route path="/profile/:gallery" component={Gallery} />
+                <PrivateRoute path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
             </Switch>
         </BrowserRouter>
     );

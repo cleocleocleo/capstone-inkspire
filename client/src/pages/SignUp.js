@@ -39,6 +39,7 @@ const SignUp = () => {
             <label>
                 <h3 className="signup__form-label">Set Password: </h3>
                 <input
+                    type="password"
                     name="password"
                     placeholder="Password"
                     ref={register({ required: "Password is required!" })}
@@ -50,6 +51,7 @@ const SignUp = () => {
             <label>
                 <h3 className="signup__form-label">Confirm Password: </h3>
                 <input
+                    type="password"
                     name="passwordConfirmation"
                     placeholder="Retype Password"
                     ref={register({
@@ -63,9 +65,7 @@ const SignUp = () => {
                     })}
                 />
                 {errors.passwordConfirmation && (
-                    <p>
-                        {errors.passwordConfirmation.message}
-                    </p>
+                    <p>{errors.passwordConfirmation.message}</p>
                 )}
             </label>
             {error ? <p className="signup__error-text">{error}</p> : null}
