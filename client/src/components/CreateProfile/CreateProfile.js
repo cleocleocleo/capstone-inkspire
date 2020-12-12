@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
-import Select from "react-select";
 import { auth, firestore, storage, timestamp } from '../../services/firebase';
+import MultiSelect from "react-multi-select-component";
 
 const CreateProfile = () => {
     const [file, setFile] = useState(null);
     const [user] = useState(auth().currentUser);
-    const [values, setReactSelect] = useState({
-        selectedOption: []
-    });
-
-    const {
-        register,
-        handleSubmit,
-        watch,
-        setValue,
-    } = useForm();
-
-    const handleMultiChange = selectedOption => {
-        setValue("reactSelect", selectedOption);
-        setReactSelect({ selectedOption });
-    };
+    const [selected, setSelected] = useState([]);
 
     const options = [
         { value: "traditional", label: "Traditional" },
@@ -31,17 +17,15 @@ const CreateProfile = () => {
         { value: "stick and poke", label: "Stick & Poke" },
         { value: "realism", label: "Realism" },
         { value: "blackwork", label: "Blackwork" },
-        { value: "Geometric", label: "Geometric" },
+        { value: "geometric", label: "Geometric" },
         { value: "watercolour", label: "Watercolour" },
         { value: "sketch", label: "Sketch" },
         { value: "other", label: "Other" }
     ];
 
-    const ifArtist = watch("isArtist");
+    const { register, handleSubmit, watch} = useForm();
 
-    useEffect(() => {
-        register({ name: "reactSelect" });
-    }, [register]);
+    const ifArtist = watch("isArtist");
 
     const onFileChange = (e) => {
         setFile(e.target.files[0])
@@ -54,17 +38,14 @@ const CreateProfile = () => {
         const collectionRef = firestore.collection('users');
 
         await fileRef.put(file)
-
         const username = data.username;
         const firstName = data.firstName;
         const lastName = data.lastName;
         const bio = data.bio;
         const isArtist = !data.isArtist ? false : true;
-        const artStyles = !data.artStyles
-            ? []
-            : data.reactSelect.map((item) => {
-                return item.value
-            });        
+        const artStyle = selected.map((item) => {
+            return item.value
+        })
 
         const bookings = data.bookings;
 
@@ -74,7 +55,7 @@ const CreateProfile = () => {
             lastName,
             bio,
             isArtist,
-            artStyles,
+            artStyle,
             bookings,
             profileImg: await fileRef.getDownloadURL(),
             createdAt: timestamp(),
@@ -142,15 +123,13 @@ const CreateProfile = () => {
             {ifArtist && (
                 <div>
                     <label>
-                        <h3>Art Styles</h3>
-                        <Select
-                            name="artStyles"
-                            placeholder="Add Art Styles"
-                            value={values.selectedOption}
+                        <h3>Art Style</h3>
+                        <MultiSelect
                             options={options}
-                            onChange={handleMultiChange}
-                            isMulti
-                            ref={register}
+                            value={selected}
+                            onChange={setSelected}
+                            labelledBy={"Art Style"}
+                            hasSelectAll={false}
                         />
                     </label>
                     <h3>Booking Availability</h3>
@@ -181,7 +160,7 @@ const CreateProfile = () => {
                 <input name="file"
                     type="file"
                     onChange={onFileChange}
-                    ref={register({ required: true })}
+                    ref={register}
                 />
             </label>
             <br />

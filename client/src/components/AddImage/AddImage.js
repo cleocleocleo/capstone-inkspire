@@ -1,25 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 import { auth, firestore, storage, timestamp, arrayUnion } from '../../services/firebase';
 import { useForm } from "react-hook-form";
-import Select from "react-select";
+import MultiSelect from "react-multi-select-component";
 
 const AddImage = ({ gallery }) => {
     const [file, setFile] = useState(null);
     const [user] = useState(auth().currentUser);
-    const [values, setReactSelect] = useState({
-        selectedOption: []
-    });
-
-    const {
-        register,
-        handleSubmit,
-        setValue
-    } = useForm();
-
-    const handleMultiChange = selectedOption => {
-        setValue("reactSelect", selectedOption);
-        setReactSelect({ selectedOption });
-    };
+    const [selected, setSelected] = useState([]);
 
     const options = [
         { value: "traditional", label: "Traditional" },
@@ -30,15 +17,13 @@ const AddImage = ({ gallery }) => {
         { value: "stick and poke", label: "Stick & Poke" },
         { value: "realism", label: "Realism" },
         { value: "blackwork", label: "Blackwork" },
-        { value: "Geometric", label: "Geometric" },
+        { value: "geometric", label: "Geometric" },
         { value: "watercolour", label: "Watercolour" },
         { value: "sketch", label: "Sketch" },
         { value: "other", label: "Other" }
     ];
 
-    useEffect(() => {
-        register({ name: "reactSelect" });
-    }, [register]);
+    const { register, handleSubmit } = useForm();
 
     const onFileChange = (e) => {
         setFile(e.target.files[0])
@@ -48,11 +33,9 @@ const AddImage = ({ gallery }) => {
         const title = data.title;
         const description = data.description;
         const userID = user.uid;
-        const artStyles = !data.artStyles
-            ? []
-            : data.reactSelect.map((item) => {
-                return item.value
-            });
+        const artStyle = selected.map((item) => {
+            return item.value
+        })
         
         const storageRef = storage.ref()
         const fileRef = storageRef.child(file.name)
@@ -75,7 +58,7 @@ const AddImage = ({ gallery }) => {
             user: userID,
             title,
             description,
-            artStyles,
+            artStyle,
         });
     };
 
@@ -98,15 +81,13 @@ const AddImage = ({ gallery }) => {
                 />
             </label>
             <label>
-                <h3>Art Styles</h3>
-                <Select
-                    name="artStyles"
-                    placeholder="Add Art Styles"
-                    value={values.selectedOption}
+                <h3>Art Style</h3>
+                <MultiSelect
                     options={options}
-                    onChange={handleMultiChange}
-                    isMulti
-                    ref={register({ required: true })}
+                    value={selected}
+                    onChange={setSelected}
+                    labelledBy={"Art Style"}
+                    hasSelectAll={false}
                 />
             </label>
             <input name="file" type="file" onChange={onFileChange} ref={register({ required: true })} />

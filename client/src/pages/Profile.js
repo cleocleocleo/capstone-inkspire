@@ -3,11 +3,13 @@ import GalleryGrid from '../components/GalleryGrid/GalleryGrid';
 import { auth, firestore } from '../services/firebase';
 import CreateGallery from '../components/CreateGallery/CreateGallery';
 import CreateProfile from '../components/CreateProfile/CreateProfile';
+import ProfileDetails from '../components/ProfileDetails/ProfileDetails';
 import useFirestoreCol from '../hooks/useFirestoreCol';
 
 const Profile = () => {
     const [galleries, setGalleries] = useState([]);
     const [user] = useState(auth().currentUser);
+    const [userInfo, setUserInfo] = useState([]);
     const { docs } = useFirestoreCol('users');
 
     const checkUser = () => {
@@ -38,6 +40,7 @@ const Profile = () => {
             {!checkUser() && <CreateProfile />}
             {checkUser() &&
                 <div>
+                    <ProfileDetails userInfo={userInfo}/>
                     <CreateGallery />
                     <GalleryGrid galleries={galleries} />
                 </div>
