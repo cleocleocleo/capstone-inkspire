@@ -1,7 +1,21 @@
+import './SearchFilters.scss';
 import React, { useState } from 'react';
 import MultiSelect from "react-multi-select-component";
 
-const SearchFilters = ({ setQuery }) => {
+const options = [
+    { value: "traditional", label: "Traditional" },
+    { value: "new school", label: "New School" },
+    { value: "japanese", label: "Japanese" },
+    { value: "black grey", label: "Black / Grey" },
+    { value: "portraiture", label: "Portraiture" },
+    { value: "stick and poke", label: "Stick & Poke" },
+    { value: "realism", label: "Realism" },
+    { value: "blackwork", label: "Blackwork" },
+    { value: "geometric", label: "Geometric" },
+    { value: "watercolour", label: "Watercolour" }
+];
+
+const SearchFilters = ({ setSearchParams, searchType, setSearchType }) => {
     const [selected, setSelected] = useState([]);
 
     const handleQueryChange = e => {
@@ -11,38 +25,54 @@ const SearchFilters = ({ setQuery }) => {
             return item.value
         });
         if (!queries.length) {
-            setQuery([
+            setSearchParams({
+                collection: searchType,
+                field: 'artStyle',
+                operator: 'array-contains-any',
+                query: [
                 "traditional", "new school", "japanese", "black grey", "portraiture", "stick and poke", "realism", "blackwork", "geometric", "watercolour"
-            ]);
+            ]});
         } else {
-            setQuery(queries);
+            setSearchParams({ 
+                collection: searchType,
+                field: 'artStyle',
+                operator: 'array-contains-any',
+                query: queries
+            });
         }
     };
 
     const handleClear = () => {
-        setQuery([
-            "traditional", "new school", "japanese", "black grey", "portraiture", "stick and poke", "realism", "blackwork", "geometric", "watercolour"
-        ])
+        setSearchParams({
+            collection: searchType,
+            field: 'artStyle',
+            operator: 'array-contains-any',
+            query: [
+                "traditional", "new school", "japanese", "black grey", "portraiture", "stick and poke", "realism", "blackwork", "geometric", "watercolour"
+            ]
+        })
     };
-    
-    const options = [
-        { value: "traditional", label: "Traditional" },
-        { value: "new school", label: "New School" },
-        { value: "japanese", label: "Japanese" },
-        { value: "black grey", label: "Black / Grey" },
-        { value: "portraiture", label: "Portraiture" },
-        { value: "stick and poke", label: "Stick & Poke" },
-        { value: "realism", label: "Realism" },
-        { value: "blackwork", label: "Blackwork" },
-        { value: "geometric", label: "Geometric" },
-        { value: "watercolour", label: "Watercolour" },
-        { value: "sketch", label: "Sketch" },
-        { value: "other", label: "Other" }
-    ];
+
+    const toggleSearch = () => {
+        searchType === 'images'
+            ? setSearchType('users')
+            : setSearchType('images');
+    };
 
     return (
-        <aside>
-            <h3>Search Filters</h3>
+        <aside className="search-filters">
+            { searchType === 'images' &&
+                <div>
+                    <h3>Tattoo Search</h3>
+                    <button onClick={toggleSearch}>Search for Artists</button>
+                </div>
+            }
+            { searchType === 'users' &&
+                <div>
+                    <h3>Artist Search</h3>
+                    <button onClick={toggleSearch}>Search for Tattoos</button>
+                </div>
+            }
             <form onSubmit={handleQueryChange}>
                 <MultiSelect
                     options={options}

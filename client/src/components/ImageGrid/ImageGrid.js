@@ -1,34 +1,32 @@
 import './ImageGrid.scss';
-import useImageFilter from '../../hooks/useImageFilter';
+import useQuery from '../../hooks/useQuery';
 import { motion } from 'framer-motion';
-import SearchFilters from '../SearchFilters/SearchFilters';
 
-const ImageGrid = ({ setSelectedImg, query, setQuery }) => {
-    const { docs } = useImageFilter(query);
-    
+const ImageGrid = ({ setSelectedImg, searchParams }) => {
+    const {collection, field, operator, query } = searchParams;
+    const { docs } = useQuery(collection, field, operator, query);
+
     return (
-        <>
-            <SearchFilters
-                query={query}
-                setQuery={setQuery} 
-            />
-            <div className="img-grid">
-                {docs && docs.map(doc => (
-                    <motion.div className="img-grid__container" key={doc.id}
-                        layout
-                        onClick={() => setSelectedImg(doc.url)}
-                    >
-                        <motion.img className="img-grid__img"
-                            src={doc.url}
-                            alt="user uploaded"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1 }}
-                        />
-                    </motion.div>
-                ))}
-            </div>
-        </>
+        <div className="img-grid">
+            {docs && docs.map(doc => (
+                <motion.div className="img-grid__container" key={doc.id}
+                    layout
+                    onClick={() => setSelectedImg(collection === 'images'
+                        ? doc.url
+                        : doc.profileImg)}
+                >
+                    <motion.img className="img-grid__img"
+                        src={collection === 'images'
+                            ? doc.url
+                            : doc.profileImg}
+                        alt={doc.description}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1 }}
+                    />
+                </motion.div>
+            ))}
+        </div>
     );
 }
 

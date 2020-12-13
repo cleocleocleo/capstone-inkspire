@@ -10,12 +10,12 @@ import Search from './pages/Search';
 import Gallery from './components/Gallery/Gallery';
 import { auth } from './services/firebase';
 
-function PrivateRoute({ component: Component, authenticated, userID, ...rest }) {
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
     return (
         <Route
             {...rest}
             render={(props) => (authenticated === true)
-            ? <Component {...props} userID={userID} />
+            ? <Component {...props} />
             : <Redirect to={{ pathname: 'login', state: {from: props.location} }} />}
         />
     )
@@ -35,14 +35,12 @@ function PublicRoute({ component: Component, authenticated, ...rest }) {
 const App = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [isloading, setIsLoading] = useState(true);
-    const [userID, setUserID] = useState(null);
 
     useEffect( () => {
         auth().onAuthStateChanged((user) => {
             if (user) {
                 setAuthenticated(true);
                 setIsLoading(false);
-                setUserID(user.uid);
             } else {
                 setAuthenticated(false);
                 setIsLoading(false);
@@ -52,15 +50,19 @@ const App = () => {
 
     return isloading === true ? <h2>Loading...</h2> : (
         <BrowserRouter>
-            <Nav userID={userID} />
-            <Switch>
-                <PrivateRoute exact path="/" authenticated={authenticated} component={Home}></PrivateRoute>
-                <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
-                <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
-                <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
-                <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
-                <PrivateRoute path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
-            </Switch>
+            <Nav />
+            <main>
+                <Switch>
+                    <PrivateRoute exact path="/" authenticated={authenticated} component={Home}></PrivateRoute>
+                    <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
+                    <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
+                    <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
+                    <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
+                    <PrivateRoute path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                    <PrivateRoute path="/profile/:username" authenticated={authenticated} component={Profile}></PrivateRoute>
+                    <PrivateRoute path="/profile/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                </Switch>
+            </main>
         </BrowserRouter>
     );
 };

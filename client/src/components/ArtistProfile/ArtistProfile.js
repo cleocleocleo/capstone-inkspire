@@ -1,10 +1,15 @@
-// import React, { useState, useEffect } from 'react';
 import './ArtistProfile.scss';
+import CreateGallery from '../CreateGallery/CreateGallery';
+import GalleryGrid from '../GalleryGrid/GalleryGrid';
+import useGalleries from '../../hooks/useGalleries';
 
-const ArtistProfile = () => {
+const ArtistProfile = ({ userInfo }) => {
+    const { galleries } = useGalleries();
+    
     return (
         <section>
-            <h1>artist profile</h1>
+            <CreateGallery />
+            <GalleryGrid galleries={galleries} />
         </section>
     );
 }

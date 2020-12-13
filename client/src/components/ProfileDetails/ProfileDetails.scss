@@ -1,0 +1,62 @@
+.profile {
+    &__details {
+        display: flex;
+    }
+
+    &__aside {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__avatar {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+        margin-right: 2rem;
+    }
+
+    &__avatar-img {
+        min-width: 100%;
+        min-height: 100%;
+        max-width: 150%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__stats {
+        display: flex;
+        flex-direction: column;
+        width: 10rem;
+        padding-top: 0.5rem;
+    }
+
+    &__stats-container{
+        display: flex;
+        align-items: center;
+        padding-left: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
+    }
+
+    &__user-info {
+        width: 50vw;
+        padding: 0.5rem 0;
+    }
+
+    &__label {
+        margin-bottom: 0.5rem;
+    }
+
+    &__bio {
+        margin-bottom: 0.5rem;
+    }
+}
