@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
-import { auth, firestore } from '../services/firebase';
+import { firestore } from '../services/firebase';
 
-const useGalleries = () => {
+const useGalleries = (user) => {
     const [galleries, setGalleries] = useState([]);
-    const [user] = useState(auth().currentUser);
 
     useEffect(() => {
         const unsub = firestore.collection('galleries')
-            .where('user', '==', user.uid)
+            .where('user', '==', user)
             .onSnapshot((snap) => {
                 let documents = [];
                 snap.forEach((doc) => {
@@ -16,7 +15,7 @@ const useGalleries = () => {
                 setGalleries(documents);
             })
         return () => unsub();
-    }, [user.uid]);
+    }, [user]);
     return { galleries };
 };
 

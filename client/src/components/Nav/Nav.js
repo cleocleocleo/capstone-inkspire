@@ -1,10 +1,13 @@
 import './Nav.scss';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useUserInfo from '../../hooks/useUserInfo';
 import userIcon from '../../assets/icons/user.svg';
+import { auth } from '../../services/firebase';
 
 const Nav = () => {
-    const { userInfo } = useUserInfo();
+    const [user] = useState(auth().currentUser);
+    const { userInfo } = useUserInfo(user.uid);
 
     const checkUser = () => {
         if (userInfo.profileImg) {

@@ -7,7 +7,6 @@ const useQuery = (collection, field, operator, query) => {
     useEffect(() => {
         const unsub = firestore.collection(collection)
             .where(field, operator, query)
-            .orderBy('createdAt', 'desc')
             .onSnapshot((snap) => {
                 let documents = [];
                 snap.forEach((doc) => {

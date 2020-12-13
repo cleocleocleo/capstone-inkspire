@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Search from './pages/Search';
+import User from './pages/User';
 import Gallery from './components/Gallery/Gallery';
 import { auth } from './services/firebase';
 
@@ -58,9 +59,9 @@ const App = () => {
                     <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
                     <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
                     <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
-                    <PrivateRoute path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
-                    <PrivateRoute path="/profile/:username" authenticated={authenticated} component={Profile}></PrivateRoute>
-                    <PrivateRoute path="/profile/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                    <PrivateRoute exact path="/user/:username" authenticated={authenticated} component={User}></PrivateRoute>
+                    <PrivateRoute exact path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                    <PrivateRoute path="/user/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
                 </Switch>
             </main>
         </BrowserRouter>

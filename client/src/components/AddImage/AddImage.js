@@ -41,12 +41,19 @@ const AddImage = ({ gallery }) => {
         const fileRef = storageRef.child(file.name)
         const imagesRef = firestore.collection('images');
         const galleriesRef = firestore.collection('galleries');
+        const userRef = firestore.collection('users');
         
         await fileRef.put(file)
 
         galleriesRef.doc(gallery).update({
             user: userID,
             createdAt: timestamp(),
+            images: arrayUnion({
+                title,
+                url: await fileRef.getDownloadURL()
+            })
+        })
+        userRef.doc(userID).update({
             images: arrayUnion({
                 title,
                 url: await fileRef.getDownloadURL()

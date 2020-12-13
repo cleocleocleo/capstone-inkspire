@@ -19,8 +19,6 @@ const CreateProfile = () => {
         { value: "blackwork", label: "Blackwork" },
         { value: "geometric", label: "Geometric" },
         { value: "watercolour", label: "Watercolour" },
-        { value: "sketch", label: "Sketch" },
-        { value: "other", label: "Other" }
     ];
 
     const { register, handleSubmit, watch} = useForm();

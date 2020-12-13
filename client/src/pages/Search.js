@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Search.scss';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
+import UserGrid from '../components/UserGrid/UserGrid';
 import ImageModal from '../components/ImageModal/ImageModal';
 import SearchFilters from '../components/SearchFilters/SearchFilters';
 
@@ -25,10 +26,17 @@ const Search = () => {
                 searchType={searchType}
                 setSearchType={setSearchType}
             />
-            <ImageGrid
-                setSelectedImg={setSelectedImg}
-                searchParams={searchParams}
-            />
+            { searchType === 'images' &&
+                <ImageGrid
+                    setSelectedImg={setSelectedImg}
+                    searchParams={searchParams}
+                />
+            }
+            { searchType === 'users' &&
+                <UserGrid
+                    searchParams={searchParams}
+                />
+            }
             { selectedImg &&
                 <ImageModal
                     selectedImg={selectedImg}
