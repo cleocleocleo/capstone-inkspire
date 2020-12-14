@@ -19,6 +19,7 @@ const storage = firebase.storage();
 const firestore = firebase.firestore();
 const arrayUnion = firebase.firestore.FieldValue.arrayUnion;
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+const increment = firebase.firestore.FieldValue.increment;
 
 export const auth = firebase.auth;
-export { storage, firestore, timestamp, arrayUnion };
+export { storage, firestore, timestamp, arrayUnion, increment };

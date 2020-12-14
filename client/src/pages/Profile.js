@@ -1,6 +1,7 @@
 import CreateProfile from '../components/CreateProfile/CreateProfile';
 import ProfileDetails from '../components/ProfileDetails/ProfileDetails';
 import useUserInfo from '../hooks/useUserInfo';
+
 import { auth } from '../services/firebase';
 import { useState } from 'react';
 
@@ -13,7 +14,7 @@ const Profile = () => {
             { !userInfo && <CreateProfile />}
             { userInfo &&
                 <div>
-                    <ProfileDetails userInfo={userInfo}/>
+                    <ProfileDetails userInfo={userInfo}/>                   
                 </div>
             }
         </div>

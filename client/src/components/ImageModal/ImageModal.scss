@@ -17,4 +17,29 @@
         box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
         border: 5px solid white;
     }
+
+    &__info {
+        position: fixed;
+        width: 20rem;
+        height: 12rem;
+        bottom: 30px;
+        right: 30px;
+        background: $secondary-dark;
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: $layered-shadow;
+        color: white;
+    }
+
+    &__text {
+        margin-bottom: 1rem;
+    }
+
+    &__link {
+        color: $primary-accent;
+    }
+
+    &__description {
+        margin-bottom: 1rem;
+    }
 }

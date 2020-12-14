@@ -19,5 +19,5 @@ const useQuery = (collection, field, operator, query) => {
 
     return { docs };
 }
- 
+
 export default useQuery;

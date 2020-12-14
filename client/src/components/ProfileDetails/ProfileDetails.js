@@ -2,8 +2,18 @@ import './ProfileDetails.scss';
 import ArtistProfile from '../ArtistProfile/ArtistProfile';
 import { ReactComponent as Like } from '../../assets/icons/like2.svg';
 import { ReactComponent as Follow } from '../../assets/icons/watch.svg';
+import ImageModal from '../ImageModal/ImageModal';
+import ImageGrid from '../ImageGrid/ImageGrid';
+import { useState } from 'react';
 
 const ProfileDetails = ({ userInfo, url }) => {
+    const [selectedImg, setSelectedImg] = useState(null);
+    const query = {
+        field: 'likes',
+        operator: 'array-contains',
+        query: { user: userInfo.username }
+    };
+
 
     return !userInfo ? <p>loading...</p> : (
         <>
@@ -16,7 +26,9 @@ const ProfileDetails = ({ userInfo, url }) => {
                         <div className="profile__stats">
                             <div className="profile__stats-container">
                                 <Like className="profile__icon" />
-                                <h4 className="profile__stats-text">Likes: 0</h4>
+                                <h4 className="profile__stats-text">Likes: {!userInfo.likes
+                                    ? 0
+                                    : userInfo.likes.length}</h4>
                             </div>
                             <div className="profile__stats-container">
                                 <Follow className="profile__icon" />
@@ -35,6 +47,18 @@ const ProfileDetails = ({ userInfo, url }) => {
                 </div>
                 { (userInfo.isArtist && !url) &&
                      <ArtistProfile userInfo={userInfo} />
+                }
+                { !userInfo.isArtist &&
+                    <ImageGrid
+                        searchParams={query}
+                        setSelectedImg={setSelectedImg}
+                    />
+                }
+                {selectedImg &&
+                    <ImageModal
+                        selectedImg={selectedImg}
+                        setSelectedImg={setSelectedImg}
+                    />
                 }
             </div>
         </>

@@ -1,2 +1,21 @@
 @use '../../partials/mixins' as *;
 @use '../../partials/variables' as *;
+
+.icons {
+    position: absolute;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 3rem;
+    background: white;
+    border-radius: 50%;
+    top: -20px;
+    right: -10px;
+    box-shadow: $layered-shadow;
+
+    &__like {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}

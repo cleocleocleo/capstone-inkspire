@@ -38,7 +38,7 @@ const Gallery = props => {
                     <motion.div className="gallery__container"
                         key={uuidv4()}
                         layout
-                        onClick={() => setSelectedImg(image.url)}>
+                        onClick={() => setSelectedImg(image)}>
                         <motion.img className="gallery__img"
                             src={image.url}
                             alt={image.title}
@@ -47,16 +47,16 @@ const Gallery = props => {
                             transition={{ delay: 1 }}/>
                     </motion.div>
                 ))}
+            </div>
+            <div>
+                <AddImage gallery={gallery} />
+            </div>
                 {selectedImg &&
                     <ImageModal
                         selectedImg={selectedImg}
                         setSelectedImg={setSelectedImg}
                     />
                 }
-            </div>
-            <div>
-                <AddImage gallery={gallery} />
-            </div>
         </div>
     );
 }
