@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Search from './pages/Search';
 import User from './pages/User';
 import Gallery from './components/Gallery/Gallery';
+import Footer from './components/Footer/Footer';
 import { auth } from './services/firebase';
 
 function PrivateRoute({ component: Component, authenticated, ...rest }) {
@@ -64,6 +65,7 @@ const App = () => {
                     <PrivateRoute path="/user/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
                 </Switch>
             </main>
+            <Footer />
         </BrowserRouter>
     );
 };

@@ -1,0 +1,71 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.add-img {
+    background: $primary-light;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 4rem;
+    box-shadow: $layered-shadow;
+    margin-top: 1rem;
+
+    &__header {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom:1rem;
+    }
+
+    &__form {
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+    &__fieldset {
+        width: 40%;
+    }
+
+    &__label {
+        margin-bottom: 1rem;
+    }
+
+    &__text-input {
+        width: 80%;
+        margin-bottom: 3rem;
+
+        &--description {
+            margin-bottom: 0;
+        }
+    }
+
+    &__upload-wrap {
+        display: flex;
+        align-items: center;
+        margin-top:5.5rem;
+    }
+
+    &__upload-btn {
+        display: inline-block;
+        height: 2.25rem;
+        border: none;
+        border-radius: 6px;
+        background: $primary-accent;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        margin-right: 0.5rem;
+    }
+
+    &__submit {
+        width: 8rem;
+        height: 12.75rem;
+        border-radius: 6px;
+        font-size: 1.25rem;
+        align-self: center;
+    }
+}
+
+.multi-select {
+  --rmsc-p: 10px;       /* Spacing */
+  --rmsc-radius: 6px;   /* Radius */
+  --rmsc-h: 2.5rem;     /* Height */
+}

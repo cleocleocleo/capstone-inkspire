@@ -28,21 +28,12 @@ const Gallery = props => {
     }, [gallery]);
 
     return (
-        <div>
+        <div className="gallery">
             <header>
-                <h1>{galleryName}</h1>
-                <p>Go to the <Link to="/">Home page</Link></p>
+                <Link to="/profile" className="gallery__go-back">↢ Back to Profile</Link>
+                <h1 className="gallery__title">{galleryName}</h1>
             </header>
-            <div>
-                <AddImage gallery={gallery} />
-                {selectedImg &&
-                    <ImageModal
-                        selectedImg={selectedImg}
-                        setSelectedImg={setSelectedImg}
-                    />
-                }
-            </div>
-            <div className="gallery">
+            <div className="gallery__view">
                 {images.map((image) => (
                     <motion.div className="gallery__container"
                         key={uuidv4()}
@@ -56,6 +47,15 @@ const Gallery = props => {
                             transition={{ delay: 1 }}/>
                     </motion.div>
                 ))}
+                {selectedImg &&
+                    <ImageModal
+                        selectedImg={selectedImg}
+                        setSelectedImg={setSelectedImg}
+                    />
+                }
+            </div>
+            <div>
+                <AddImage gallery={gallery} />
             </div>
         </div>
     );

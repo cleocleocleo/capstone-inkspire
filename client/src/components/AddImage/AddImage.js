@@ -1,3 +1,4 @@
+import './AddImage.scss';
 import React, { useState } from 'react';
 import { auth, firestore, storage, timestamp, arrayUnion } from '../../services/firebase';
 import { useForm } from "react-hook-form";
@@ -7,6 +8,7 @@ const AddImage = ({ gallery }) => {
     const [file, setFile] = useState(null);
     const [user] = useState(auth().currentUser);
     const [selected, setSelected] = useState([]);
+    const [error, setError] = useState(null);
 
     const options = [
         { value: "traditional", label: "Traditional" },
@@ -25,8 +27,18 @@ const AddImage = ({ gallery }) => {
 
     const { register, handleSubmit } = useForm();
 
+    const types = ['image/png', 'image/jpeg'];
+
     const onFileChange = (e) => {
-        setFile(e.target.files[0])
+        let selected = e.target.files[0];
+
+        if (selected && types.includes(selected.type)) {
+            setFile(selected);
+            setError('');
+        } else {
+            setFile(null);
+            setError('Please select an image file (png or jpg)');
+        }
     };
 
     const onUpload = async (data) => {
@@ -70,36 +82,56 @@ const AddImage = ({ gallery }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onUpload)}>
-            <label>
-                <h3>Title: </h3>
-                <input
-                    name="title"
-                    type="text"
-                    ref={register({ required: true })}
-                />
-            </label>
-            <label>
-                <h3>Description: </h3>
-                <input
-                    name="description"
-                    type="text"
-                    ref={register({ required: true })}
-                />
-            </label>
-            <label>
-                <h3>Art Style</h3>
-                <MultiSelect
-                    options={options}
-                    value={selected}
-                    onChange={setSelected}
-                    labelledBy={"Art Style"}
-                    hasSelectAll={false}
-                />
-            </label>
-            <input name="file" type="file" onChange={onFileChange} ref={register({ required: true })} />
-            <button type="submit">Upload image</button>
-        </form>
+        <section className="add-img">
+            <h2 className="add-img__header">Add Image:</h2>
+            <form className="add-img__form" onSubmit={handleSubmit(onUpload)}>
+                <fieldset className="add-img__fieldset">
+                    <label>
+                        <h3 className="add-img__label">Title: </h3>
+                        <input className="add-img__text-input"
+                            name="title"
+                            type="text"
+                            ref={register({ required: true })}
+                        />
+                    </label>
+                    <label>
+                        <h3 className="add-img__label">Description: </h3>
+                        <input className="add-img__text-input add-img__text-input--description"
+                            name="description"
+                            type="text"
+                            ref={register({ required: true })}
+                        />
+                    </label>
+                </fieldset>
+                <fieldset className="add-img__fieldset">
+                    <label>
+                        <h3 className="add-img__label">Art Style:</h3>
+                        <MultiSelect
+                            options={options}
+                            value={selected}
+                            onChange={setSelected}
+                            labelledBy={"Art Style"}
+                            hasSelectAll={false}
+                        />
+                    </label>
+                    <div className="add-img__upload-wrap">
+                        <label className="add-img__upload-btn">
+                            <h4>Choose a file</h4>
+                            <input type="file"
+                                name="file"
+                                onChange={onFileChange}
+                                ref={register({ required: true })}
+                            />
+                        </label>
+                        <div className="output">
+                            {error && <div className="error">{error}</div>}
+                            {file && <div>{file.name}</div>}
+                        </div>
+                    </div>
+                </fieldset>
+                <button className="add-img__submit" type="submit">Upload</button>
+            </form>
+        </section>
     )
 };
 

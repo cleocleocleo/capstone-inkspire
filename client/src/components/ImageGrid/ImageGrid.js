@@ -11,7 +11,7 @@ const ImageGrid = ({ setSelectedImg, searchParams }) => {
             {docs && docs.map(doc => (
                 <motion.div className="img-grid__container" key={doc.id}
                     layout
-                    onClick={() => setSelectedImg(doc.url)}
+                    onClick={() => setSelectedImg(doc)}
                 >
                     <motion.img className="img-grid__img"
                         src={doc.url}

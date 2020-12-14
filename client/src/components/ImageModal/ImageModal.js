@@ -6,14 +6,14 @@ const ImageModal = ({ selectedImg, setSelectedImg }) => {
         if (e.target.classList.contains('img-modal')) {
             setSelectedImg(null);
         }
-    }
+    };
 
     return (
         <motion.div className="img-modal" onClick={handleClick}
             intial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
         >
-            <motion.img className="img-modal__img" src={selectedImg} alt="fullview"
+            <motion.img className="img-modal__img" src={selectedImg.url} alt={selectedImg.title}
                 initial={{ y: "-100vh" }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}

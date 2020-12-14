@@ -1,0 +1,21 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.footer {
+    bottom: 0;
+    background: $secondary-dark;
+    padding: 1.25rem 1.5rem;
+    margin-top: 3rem;
+    
+    &__container {
+        width: 5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 0 auto;
+    }
+
+    &__logo {
+        height: 1.5rem;
+    }
+}

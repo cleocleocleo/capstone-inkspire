@@ -20,18 +20,18 @@ const Nav = () => {
     return ( 
         <header>
             <nav className="nav">
-                <Link to="/profile">
-                    <div className="nav__profile-container">
-                            <img className="nav__profile-img"
-                            src={checkUser()} alt=""/>
-                    </div>
-                </Link>
                 <Link to="/">
                     <h1 className="nav__title">Inkspire</h1>
                 </Link>
                 <div className="nav__list">
-                    <Link to="/profile"><h3>Profile</h3></Link>
-                    <Link to="/search"><h3>Search</h3></Link>
+                    <Link to="/profile"><h4 className="nav__link">Profile</h4></Link>
+                    <Link to="/search"><h4 className="nav__link">Search</h4></Link>
+                    <Link to="/profile">
+                        <div className="nav__profile-container">
+                                <img className="nav__profile-img"
+                                src={checkUser()} alt=""/>
+                        </div>
+                    </Link>
                 </div>
             </nav>
         </header>

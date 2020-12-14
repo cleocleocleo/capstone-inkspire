@@ -1,23 +1,26 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
 .gallery {
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 2.25rem;
+    
+    &__go-back {
+        color: $primary-accent;
+    }
+
+    &__title {
+        margin: 1rem 0;
+    }
+
+    &__view {
+        @include grid-layout;
+        margin-bottom: 3rem;
+    }
 
     &__container {
-        height: 0;
-        overflow: hidden;
-        padding: 50% 0;
-        position: relative;
-        border-radius: 6px;
+        @include grid-img-container;
     }
 
     &__img {
-        min-width: 100%;
-        min-height: 100%;
-        max-width: 150%;
-        position: absolute;
-        top: 0;
-        left: 0;
+        @include grid-img;
     }
 }

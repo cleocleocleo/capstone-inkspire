@@ -14,13 +14,14 @@ html {
 }
 
 body {
-    font-family: 'Raleway', sans-serif;
-    color: black;
+    font-family: 'Karla', sans-serif;
+    color: $secondary-dark;
     margin: 0;
 }
 
 main {
     padding: 0 1rem;
+    min-height: 78vh;
 }
 
 *:any-link {
@@ -30,27 +31,72 @@ main {
 }
 
 h1 {
-    font-family: 'Vollkorn', serif;
+    font-family: 'Rubik';
     font-weight: 600;
-    font-style: italic;
     margin: 0;
 }
 
 h2 {
-    font-family: 'Vollkorn', serif;
+    font-family: 'Rubik';
     font-weight: normal;
-    font-style: italic;
     margin: 0;
 }
 
 h3 {
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
+    font-family: 'Karla';
+    font-weight: 600;
     margin: 0;
 }
 
 h4 {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 500;
+    font-family: 'Karla';
+    font-weight: normal;
     margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+// FORMS & INPUTS
+
+input {
+    color: $tertiary-dark;
+    background: transparent;
+    font-size: 1rem;
+    height: 2.5rem;
+    border: none;
+    border-bottom: 2px solid $secondary-dark;
+    padding: 0.25rem 0;
+
+    &:focus {
+        border: none;
+        border-bottom: 2px solid $primary-accent;
+        outline: none;
+    }
+}
+
+input[type="file"] {
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+button {
+    border: none;
+    border-radius: 6px;
+    background: $primary-accent;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
 }

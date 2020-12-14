@@ -1,6 +1,14 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
 .profile {
     &__details {
+        background: $primary-light;
         display: flex;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 4rem;
+        box-shadow: $layered-shadow;
     }
 
     &__aside {
@@ -15,16 +23,11 @@
         border-radius: 50%;
         overflow: hidden;
         position: relative;
-        margin-right: 2rem;
+        margin: 0 2.5rem 1rem 0;
     }
 
     &__avatar-img {
-        min-width: 100%;
-        min-height: 100%;
-        max-width: 150%;
-        position: absolute;
-        top: 0;
-        left: 0;
+        @include grid-img;
     }
 
     &__stats {

@@ -3,12 +3,12 @@ import useQuery from '../hooks/useQuery';
 import { useState } from 'react';
 import ImageModal from '../components/ImageModal/ImageModal';
 import { motion } from 'framer-motion';
+import { v4 as uuidv4 } from 'uuid';
 
 const User = (props) => {
     const [selectedImg, setSelectedImg] = useState(null);
     const { docs } = useQuery('users', 'username', '==', props.match.params.username);
     const userInfo = docs ? docs[0] : {};
-
 
     return (
         <div>
@@ -27,7 +27,7 @@ const User = (props) => {
                     }
                     <div className="img-grid">
                         {docs && docs[0].images.map(doc => (
-                            <motion.div className="img-grid__container" key={doc.id}
+                            <motion.div className="img-grid__container" key={uuidv4()}
                                 layout
                                 onClick={() => setSelectedImg(doc.url)}
                             >
