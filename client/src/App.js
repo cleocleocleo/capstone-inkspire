@@ -2,10 +2,8 @@ import './App.scss';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Nav from './components/Nav/Nav';
-import Home from './pages/Home';
+import Splash from './pages/Splash';
 import Profile from './pages/Profile';
-import SignUp from './pages/SignUp';
-import Login from './pages/Login';
 import Search from './pages/Search';
 import User from './pages/User';
 import Gallery from './components/Gallery/Gallery';
@@ -18,7 +16,7 @@ function PrivateRoute({ component: Component, authenticated, ...rest }) {
             {...rest}
             render={(props) => (authenticated === true)
             ? <Component {...props} />
-            : <Redirect to={{ pathname: 'login', state: {from: props.location} }} />}
+            : <Redirect to={{ pathname: '/login', state: {from: props.location} }} />}
         />
     )
 }
@@ -55,11 +53,11 @@ const App = () => {
             <Nav />
             <main>
                 <Switch>
-                    <PrivateRoute exact path="/" authenticated={authenticated} component={Home}></PrivateRoute>
-                    <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
-                    <PublicRoute path="/signup" authenticated={authenticated} component={SignUp}></PublicRoute>
-                    <PublicRoute path="/login" authenticated={authenticated} component={Login}></PublicRoute>
+                    <PrivateRoute exact path="/" authenticated={authenticated} component={Splash}></PrivateRoute>
+                    <PublicRoute path="/signup" authenticated={authenticated} component={Splash}></PublicRoute>
+                    <PublicRoute path="/login" authenticated={authenticated} component={Splash}></PublicRoute>
                     <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
+                    <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
                     <PrivateRoute exact path="/user/:username" authenticated={authenticated} component={User}></PrivateRoute>
                     <PrivateRoute exact path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
                     <PrivateRoute path="/user/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>

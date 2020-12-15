@@ -1,33 +1,43 @@
 import React, { useState } from "react";
+import './CreateGallery.scss';
 import { auth, firestore, timestamp } from '../../services/firebase';
+import { useForm } from "react-hook-form";
 
 const CreateGallery = () => {
     const [user] = useState(auth().currentUser);
-    const [gallerytitle, setGallerytitle] = useState("");
 
-    const handleChange = (e) => {
-        setGallerytitle(e.target.value);
-    };
+    const { register, handleSubmit } = useForm();
 
-    const handleCreate = () => {
-        if (!gallerytitle) {
-            return;
-        }
+    const handleCreate = (data) => {
+        const title = data.title;
+
         const createdAt = timestamp();
         firestore.collection("galleries").doc().set({
-            title: gallerytitle,
+            title,
             user: user.uid,
             createdAt,
         });
-        setGallerytitle("");
     };
 
-  return (
-    <>
-      <input value={gallerytitle} onChange={handleChange} type="text" />
-      <button onClick={handleCreate}>Create Gallery</button>
-    </>
-  );
+    return (
+        <>
+            <h2>Your Image Galleries</h2>
+            <div className="create-gallery">
+                <h2 className="create-gallery__header">Add New Gallery</h2>
+                <form className="create-gallery__form" onSubmit={handleSubmit(handleCreate)}>
+                    <h3 className="create-gallery__label">Title:</h3>
+                    <label>
+                        <input className="create-gallery__text-input"
+                            name="title"
+                            type="text"
+                            ref={register({ required: true })}
+                        />
+                    </label>
+                    <button className="create-gallery__btn" type="submit">Create Gallery</button>
+                </form>
+            </div>
+        </>
+    );
 };
 
 export default CreateGallery;

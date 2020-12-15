@@ -45,10 +45,10 @@ const ProfileDetails = ({ userInfo, url }) => {
                         }
                     </div>
                 </div>
-                { (userInfo.isArtist && !url) &&
+                { (userInfo.isArtist === true && !url) &&
                      <ArtistProfile userInfo={userInfo} />
                 }
-                { !userInfo.isArtist &&
+                { userInfo.isArtist &&
                     <ImageGrid
                         searchParams={query}
                         setSelectedImg={setSelectedImg}

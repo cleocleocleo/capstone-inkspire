@@ -1,15 +1,20 @@
 import { useState, useEffect } from 'react';
-import { firestore } from '../services/firebase';
+import { auth, firestore } from '../services/firebase';
 
-const useUserInfo = (user) => {
+const useUserInfo = () => {
+    const [user] = useState(auth().currentUser);
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        const unsub = firestore.collection('users').doc(user)
-            .onSnapshot((snap) => {
-                setUserInfo({ ...snap.data(), id: snap.id });
-            });
-        return () => unsub()
+        if (user) {
+            const unsub = firestore.collection('users').doc(user.uid)
+                .onSnapshot((snap) => {
+                    setUserInfo({ ...snap.data(), id: snap.id });
+                });
+            return () => unsub()
+        } else {
+            setUserInfo(null);
+        }
     }, [user])
     return { userInfo };
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
-import { signup } from '../helpers/auth';
+import { signup } from '../../helpers/auth';
 
 const SignUp = () => {
     const [error, setError] = useState('');
@@ -29,7 +29,6 @@ const SignUp = () => {
                 <input
                     type="text"
                     name="email"
-                    placeholder="Email"
                     ref={register({
                         required: true,
                         pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -41,7 +40,6 @@ const SignUp = () => {
                 <input
                     type="password"
                     name="password"
-                    placeholder="Password"
                     ref={register({ required: "Password is required!" })}
                 />
                 {errors.password && (
@@ -53,7 +51,6 @@ const SignUp = () => {
                 <input
                     type="password"
                     name="passwordConfirmation"
-                    placeholder="Retype Password"
                     ref={register({
                         required: "Please confirm password!",
                         validate: {

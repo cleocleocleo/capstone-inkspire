@@ -4,8 +4,6 @@ import { useState } from 'react';
 import ImageModal from '../components/ImageModal/ImageModal';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
 import { useRouteMatch } from 'react-router-dom';
-// import { motion } from 'framer-motion';
-// import { v4 as uuidv4 } from 'uuid';
 
 const User = () => {
     const [selectedImg, setSelectedImg] = useState(null);
@@ -20,7 +18,7 @@ const User = () => {
         query: match.params.username
     };
 
-    return !docs[0] ? 'loading...' : (
+    return !docs[0] ? <h2>Loading...</h2> : (
         <div>
             <div>
                 <ProfileDetails
