@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { signup } from '../../helpers/auth';
+import { ReactComponent as EyeIcon } from '../../assets/icons/watch2.svg';
 
 const SignUp = () => {
     const [error, setError] = useState('');
@@ -22,11 +23,13 @@ const SignUp = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Sign Up</h1>
+        <form className="splash__form" onSubmit={handleSubmit(onSubmit)}>
+            <EyeIcon className="splash__icon" />
+            <h1 className="splash__form-header">Sign Up</h1>
             <label>
-                <h3 className="signup__form-label">Email: </h3>
+                <h3 className="splash__form-label">Email: </h3>
                 <input
+                    className="splash__form-field"
                     type="text"
                     name="email"
                     ref={register({
@@ -36,8 +39,9 @@ const SignUp = () => {
                 />
             </label>
             <label>
-                <h3 className="signup__form-label">Set Password: </h3>
+                <h3 className="splash__form-label">Set Password: </h3>
                 <input
+                    className="splash__form-field"
                     type="password"
                     name="password"
                     ref={register({ required: "Password is required!" })}
@@ -47,8 +51,9 @@ const SignUp = () => {
                 )}
             </label>
             <label>
-                <h3 className="signup__form-label">Confirm Password: </h3>
+                <h3 className="splash__form-label">Confirm Password: </h3>
                 <input
+                    className="splash__form-field"
                     type="password"
                     name="passwordConfirmation"
                     ref={register({
@@ -65,9 +70,9 @@ const SignUp = () => {
                     <p>{errors.passwordConfirmation.message}</p>
                 )}
             </label>
-            {error ? <p className="signup__error-text">{error}</p> : null}
-            <p>Already have an account? <Link to="/login">Login</Link></p>
-            <button type="submit">Sign Up</button>
+            {error ? <p className="splash__error">{error}</p> : null}
+            <button className="splash__btn" type="submit">Sign Up</button>
+            <p>Already have an account? <Link to="/login" className="splash__link">Log in here</Link></p>
         </form>
     );
 }

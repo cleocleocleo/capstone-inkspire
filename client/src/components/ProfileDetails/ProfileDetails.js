@@ -14,6 +14,15 @@ const ProfileDetails = ({ userInfo, url }) => {
         query: { user: userInfo.username }
     };
 
+    const bookingClass = () => {
+        if ( userInfo.bookings === 'closed') {
+            return 'bookings bookings--closed';
+        } else if ( userInfo.bookings === 'open') {
+            return 'bookings bookings--open'
+        } else {
+            return 'bookings bookings--waitlist';
+        }
+    };
 
     return !userInfo ? <p>loading...</p> : (
         <>
@@ -41,7 +50,10 @@ const ProfileDetails = ({ userInfo, url }) => {
                         <h3 className="profile__label">Bio:</h3>
                         <h4 className="profile__bio">{userInfo.bio}</h4>
                         { userInfo.isArtist &&
-                            <h3 className="profile__label">Booking Status:<br/>{userInfo.bookings}</h3>
+                            <>
+                                <h3 className="profile__label">Booking Status:</h3>
+                                <p className={bookingClass()}>{userInfo.bookings}</p>
+                            </>
                         }
                     </div>
                 </div>

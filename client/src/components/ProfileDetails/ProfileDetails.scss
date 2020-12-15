@@ -5,10 +5,8 @@
     &__details {
         background: $primary-light;
         display: flex;
-        padding: 1.5rem;
-        border-radius: 10px;
         margin-bottom: 4rem;
-        box-shadow: $layered-shadow;
+        @include call-out;
     }
 
     &__aside {
@@ -60,6 +58,30 @@
     }
 
     &__bio {
-        margin-bottom: 0.5rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.bookings {
+    width: 9rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.8rem;
+    text-align: center;
+
+    &--closed {
+        background: $primary-dark;
+        color: white;
+    }
+
+    &--open {
+        background: #66DDAA;
+        color: $primary-dark;
+    }
+
+    &--waitlist {
+        background: $primary-accent;
+        color: $primary-dark;
     }
 }

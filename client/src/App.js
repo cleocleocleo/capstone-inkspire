@@ -51,18 +51,18 @@ const App = () => {
     return isloading === true ? <h2>Loading...</h2> : (
         <BrowserRouter>
             <Nav />
-            <main>
                 <Switch>
                     <PrivateRoute exact path="/" authenticated={authenticated} component={Splash}></PrivateRoute>
                     <PublicRoute path="/signup" authenticated={authenticated} component={Splash}></PublicRoute>
                     <PublicRoute path="/login" authenticated={authenticated} component={Splash}></PublicRoute>
-                    <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
-                    <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
-                    <PrivateRoute exact path="/user/:username" authenticated={authenticated} component={User}></PrivateRoute>
-                    <PrivateRoute exact path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
-                    <PrivateRoute path="/user/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                    <main>
+                        <PrivateRoute exact path="/profile" authenticated={authenticated} component={Profile}></PrivateRoute>
+                        <PrivateRoute path="/search" authenticated={authenticated} component={Search}></PrivateRoute>
+                        <PrivateRoute exact path="/user/:username" authenticated={authenticated} component={User}></PrivateRoute>
+                        <PrivateRoute exact path="/profile/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                        <PrivateRoute path="/user/:username/:gallery" authenticated={authenticated} component={Gallery}></PrivateRoute>
+                    </main>
                 </Switch>
-            </main>
             <Footer />
         </BrowserRouter>
     );

@@ -41,3 +41,10 @@
     top: 0;
     left: 0;
 }
+
+// CALL OUT BOX
+@mixin call-out {
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: $layered-shadow;
+}

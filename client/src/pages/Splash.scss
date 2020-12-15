@@ -1,0 +1,84 @@
+@use '../partials/mixins' as *;
+@use '../partials/variables' as *;
+
+.splash {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background:
+        linear-gradient(
+        rgba(50, 50, 50, 0.60), 
+        rgba(50, 50, 50, 0.60)
+        ),
+        url('https://firebasestorage.googleapis.com/v0/b/inkspire-adbc2.appspot.com/o/splash%2Fsplash4.jpg?alt=media&token=0439ca17-a110-4168-b235-b26152efb184');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+
+    &__container {
+        position: absolute;
+        background: $primary-light;
+        width: 25rem;
+        top: 15%;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        @include call-out;
+
+        &--wider {
+            width: 30rem;
+        }
+    }
+
+    &__form {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    &__form-header {
+        margin-bottom: 2rem;
+    }
+
+    &__form-field {
+        width: 100%;
+        margin-bottom: 3rem;
+    }
+
+    &__btn {
+        display: block;
+        width: 10rem;
+        height: 3rem;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        background: $primary-accent;
+        padding: 0.5rem 1rem;
+        margin: 0 auto 2rem;
+        cursor: pointer;
+    }
+
+    &__link {
+        color: $secondary-dark;
+        font-weight: 700;
+
+        &:hover {
+            color: $primary-accent;
+        }
+    }
+
+    &__icon {
+        height: 3rem;
+        width: 3rem;
+        margin: -0.5rem 9rem 1.5rem;
+    }
+
+    &__header {
+        margin-bottom: 2rem;
+    }
+
+    &__intro {
+        text-indent: 30px;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+}

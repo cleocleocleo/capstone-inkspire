@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { signin } from '../../helpers/auth';
 import { useForm } from "react-hook-form";
+import { ReactComponent as EyeIcon } from '../../assets/icons/watch2.svg';
 
 const Login = () => {
     const[error, setError] = useState('');
@@ -21,11 +22,13 @@ const Login = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Log In</h1>
+        <form className="splash__form" onSubmit={handleSubmit(onSubmit)}>
+            <EyeIcon className="splash__icon" />
+            <h1 className="splash__form-header">Log In</h1>
             <label>
-                <h3 className="signup__form-label">Email: </h3>
+                <h3 className="splash__form-label">Email: </h3>
                 <input
+                    className="splash__form-field"
                     type="text"
                     name="email"
                     ref={register({
@@ -35,8 +38,9 @@ const Login = () => {
                 />
             </label>
             <label>
-                <h3 className="signup__form-label">Set Password: </h3>
+                <h3 className="splash__form-label">Password: </h3>
                 <input
+                    className="splash__form-field"
                     type="password"
                     name="password"
                     ref={register({ required: "Password is required!" })}
@@ -45,9 +49,9 @@ const Login = () => {
                     <p>{errors.password.message}</p>
                 )}
             </label>
-            {error ? <p className="login__error-text">{error}</p> : null}
-            <p>Don't have an account? <Link to="/signup">Sign Up Here</Link></p>
-            <button type="submit">Log In</button>
+            {error ? <p className="splash__error">{error}</p> : null}
+            <button className="splash__btn" type="submit">Log In</button>
+            <p>Don't have an account? <Link to="/signup" className="splash__link">Sign up here</Link></p>
         </form>
     );
 }
