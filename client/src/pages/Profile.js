@@ -5,10 +5,10 @@ import useUserInfo from '../hooks/useUserInfo';
 const Profile = () => {
     const { userInfo } = useUserInfo();
 
-    return (
+    return !userInfo ? <p>loading...</p> : (
         <div>
-            { !userInfo && <CreateProfile />}
-            { userInfo &&
+            { !userInfo.username  && <CreateProfile />}
+            { userInfo.username &&
                 <div>
                     <ProfileDetails userInfo={userInfo}/>                   
                 </div>

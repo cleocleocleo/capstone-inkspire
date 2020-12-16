@@ -13,7 +13,7 @@ const useUserInfo = () => {
                 });
             return () => unsub()
         } else {
-            setUserInfo(null);
+            setUserInfo({});
         }
     }, [user])
     return { userInfo };

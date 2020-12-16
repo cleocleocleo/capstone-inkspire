@@ -63,17 +63,22 @@ const SearchFilters = ({ setSearchParams, searchType, setSearchType }) => {
         <aside className="search-filters">
             { searchType === 'images' &&
                 <div>
-                    <h3>Tattoo Search</h3>
-                    <button onClick={toggleSearch}>Search for Artists</button>
+                    <h3 className="search-filters__header">Tattoo Search</h3>
+                    <button className="search-filters__btn search-filters__btn--toggle" onClick={toggleSearch}>
+                        Click here for Artists
+                    </button>
                 </div>
             }
             { searchType === 'users' &&
                 <div>
-                    <h3>Artist Search</h3>
-                    <button onClick={toggleSearch}>Search for Tattoos</button>
+                    <h3 className="search-filters__header">Artist Search</h3>
+                    <button className="search-filters__btn search-filters__btn--toggle" onClick={toggleSearch}>
+                        Click here for Tattoos
+                    </button>
                 </div>
             }
             <form onSubmit={handleQueryChange}>
+                <h3 className="search-filters__header">Select Filters:</h3>
                 <MultiSelect
                     options={options}
                     value={selected}
@@ -81,9 +86,14 @@ const SearchFilters = ({ setSearchParams, searchType, setSearchType }) => {
                     labelledBy={"Art Style"}
                     hasSelectAll={false}
                 />
-                <button type="submit">search</button>
+                <button className="search-filters__btn" type="submit">
+                    Search
+                </button>
+                <button className=" search-filters__btn search-filters__btn--clear" onClick={handleClear}>
+                    Clear Search
+                </button>
             </form>
-            <button onClick={handleClear}>clear search</button>
+            
         </aside>
     );
 }

@@ -3,11 +3,12 @@
 
 .add-img {
     background: $primary-light;
+    max-width: 68rem;
     padding: 1.5rem;
     border-radius: 10px;
     margin-bottom: 4rem;
     box-shadow: $layered-shadow;
-    margin-top: 1rem;
+    margin: 1rem auto 0;
 
     &__header {
         font-size: 1.5rem;

@@ -1,14 +1,15 @@
 import './AddImage.scss';
 import React, { useState } from 'react';
-import { auth, firestore, storage, timestamp, arrayUnion } from '../../services/firebase';
+import useUserInfo from '../../hooks/useUserInfo';
+import { firestore, storage, timestamp, arrayUnion } from '../../services/firebase';
 import { useForm } from "react-hook-form";
 import MultiSelect from "react-multi-select-component";
 
 const AddImage = ({ gallery }) => {
     const [file, setFile] = useState(null);
-    const [user] = useState(auth().currentUser);
     const [selected, setSelected] = useState([]);
     const [error, setError] = useState(null);
+    const { userInfo } = useUserInfo();
 
     const options = [
         { value: "traditional", label: "Traditional" },
@@ -25,7 +26,7 @@ const AddImage = ({ gallery }) => {
         { value: "other", label: "Other" }
     ];
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const types = ['image/png', 'image/jpeg'];
 
@@ -44,7 +45,8 @@ const AddImage = ({ gallery }) => {
     const onUpload = async (data) => {
         const title = data.title;
         const description = data.description;
-        const userID = user.uid;
+        const user = userInfo.id;
+        const username = userInfo.username;
         const artStyle = selected.map((item) => {
             return item.value
         })
@@ -58,14 +60,15 @@ const AddImage = ({ gallery }) => {
         await fileRef.put(file)
 
         galleriesRef.doc(gallery).update({
-            user: userID,
+            user,
+            username,
             createdAt: timestamp(),
             images: arrayUnion({
                 title,
                 url: await fileRef.getDownloadURL()
             })
         })
-        userRef.doc(userID).update({
+        userRef.doc(userInfo.id).update({
             images: arrayUnion({
                 title,
                 url: await fileRef.getDownloadURL()
@@ -74,11 +77,14 @@ const AddImage = ({ gallery }) => {
         imagesRef.add({
             url: await fileRef.getDownloadURL(),
             createdAt: timestamp(),
-            user: userID,
+            user,
+            username,
             title,
             description,
             artStyle,
         });
+
+        reset();
     };
 
     return (

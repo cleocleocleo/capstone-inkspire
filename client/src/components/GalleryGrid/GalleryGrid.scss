@@ -4,6 +4,11 @@
 .gallery-grid {
     @include grid-layout;
 
+    &__title { 
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+
     &__item {
         @include grid-img-container;
     }

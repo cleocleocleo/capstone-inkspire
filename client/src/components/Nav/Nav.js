@@ -8,7 +8,7 @@ const Nav = () => {
     const { userInfo } = useUserInfo();
 
     const checkUser = () => {
-        if (userInfo) {
+        if (userInfo.username) {
             return userInfo.profileImg
         } else {
             return userIcon
@@ -22,12 +22,15 @@ const Nav = () => {
     return ( 
         <header>
             <nav className="nav">
-                <Link to="/">
-                    <h1 className="nav__title">Inkspire</h1>
-                </Link>
+                
+                    <h1 className="nav__title">
+                        <Link to="/">
+                            Inkspire
+                         </Link>
+                    </h1>
                 <div className="nav__list">
-                    <Link to="/profile"><h4 className="nav__link">Profile</h4></Link>
-                    <Link to="/search"><h4 className="nav__link">Search</h4></Link>
+                    <h4 className="nav__link"><Link to="/profile">Profile</Link></h4>
+                    <h4 className="nav__link"><Link to="/search">Search</Link></h4>
                     <h4 className={logoutLink} onClick={logout}>Sign out</h4>
                     <Link to="/profile">
                         <div className="nav__profile-container">

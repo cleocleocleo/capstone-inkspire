@@ -18,9 +18,11 @@ const Gallery = props => {
             .doc(gallery)
             .onSnapshot((snap) => {
                 let documents = [];
-                snap.data().images.forEach((image) => {
-                    documents.push(image);
-                });
+                if (snap.data().images) {
+                    snap.data().images.forEach((image) => {
+                        documents.push(image);
+                    })
+                }
                 setImages(documents);
                 setGalleryName(snap.data().title);
             });

@@ -13,13 +13,13 @@ const IconOverlay = ({ selectedImg }) => {
         
         imgRef.update({
             likes: arrayUnion({
-                user: firestore.doc('users/' + user.uid)
+                user: user.uid
             })
         })
         userRef.update({
             likes: arrayUnion({
                 image: firestore.doc('images/' + selectedImg.id),
-                url: selectedImg.id
+                url: selectedImg.url
             })
         })
     };

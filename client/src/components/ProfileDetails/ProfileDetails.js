@@ -8,10 +8,11 @@ import { useState } from 'react';
 
 const ProfileDetails = ({ userInfo, url }) => {
     const [selectedImg, setSelectedImg] = useState(null);
+    
     const query = {
         field: 'likes',
         operator: 'array-contains',
-        query: { user: userInfo.username }
+        query: { user: userInfo.id }
     };
 
     const bookingClass = () => {
@@ -60,7 +61,7 @@ const ProfileDetails = ({ userInfo, url }) => {
                 { (userInfo.isArtist === true && !url) &&
                      <ArtistProfile userInfo={userInfo} />
                 }
-                { userInfo.isArtist &&
+                { userInfo.isArtist === false &&
                     <ImageGrid
                         searchParams={query}
                         setSelectedImg={setSelectedImg}
