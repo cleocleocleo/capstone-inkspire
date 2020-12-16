@@ -1,19 +1,19 @@
 import './Nav.scss';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useUserInfo from '../../hooks/useUserInfo';
 import userIcon from '../../assets/icons/user.svg';
 import { logout } from '../../helpers/auth';
 
 const Nav = () => {
+    const [profilePic, setProfilePic] = useState(userIcon);
     const { userInfo } = useUserInfo();
 
-    const checkUser = () => {
-        if (userInfo.username) {
-            return userInfo.profileImg
-        } else {
-            return userIcon
-        }
-    };
+    useEffect(() => {
+        userInfo.username
+            ? setProfilePic(userInfo.profileImg)
+            : setProfilePic(userIcon);
+    }, [userInfo.username, userInfo.profileImg])
 
     const logoutLink = !userInfo
         ? "nav__link nav__link--hidden"
@@ -35,7 +35,7 @@ const Nav = () => {
                     <Link to="/profile">
                         <div className="nav__profile-container">
                                 <img className="nav__profile-img"
-                                src={checkUser()} alt=""/>
+                                src={profilePic} alt=""/>
                         </div>
                     </Link>
                 </div>

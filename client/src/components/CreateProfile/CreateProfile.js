@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './CreateProfile.scss';
 import { useForm } from "react-hook-form";
 import { auth, firestore, storage, timestamp } from '../../services/firebase';
 import MultiSelect from "react-multi-select-component";
@@ -6,6 +7,7 @@ import MultiSelect from "react-multi-select-component";
 const CreateProfile = () => {
     const [file, setFile] = useState(null);
     const [user] = useState(auth().currentUser);
+    const [error, setError] = useState(null);
     const [selected, setSelected] = useState([]);
 
     const options = [
@@ -25,8 +27,18 @@ const CreateProfile = () => {
 
     const ifArtist = watch("isArtist");
 
+    const types = ['image/png', 'image/jpeg'];
+
     const onFileChange = (e) => {
-        setFile(e.target.files[0])
+        let selected = e.target.files[0];
+
+        if (selected && types.includes(selected.type)) {
+            setFile(selected);
+            setError('');
+        } else {
+            setFile(null);
+            setError('Please select an image file (png or jpg)');
+        }
     };
 
     const onSubmit = async (data) => {
@@ -77,92 +89,109 @@ const CreateProfile = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label>
-                <h3>Username</h3>
-                <input
-                    type="text"
-                    name="username"
-                    ref={register({ required: true, maxLength: 80 })}
-                />
-            </label>
-            <label >
-                <h3>First Name</h3>
-                <input
-                    type="text"
-                    name="firstName"
-                    ref={register({ required: true, maxLength: 80 })}
-                />
-            </label>
-            <label>
-                <h3>Last Name</h3>
-                <input
-                    type="text"
-                    name="lastName"
-                    ref={register({ required: true, maxLength: 100 })}
-                />
-            </label>
-            <label>
-                <h3>Bio</h3>
-                <textarea
-                    name="bio"
-                    ref={register({ required: false, maxLength: 300 })}
-                />
-            </label>
-            <h3>Are you a Tattoo Artist?</h3>
-            <label>
-                <input
-                    name="isArtist"
-                    type="checkbox"
-                    value="true"
-                    ref={register}
-                />Yes
-            </label>
-            {ifArtist && (
-                <div>
-                    <label>
-                        <h3>Art Style</h3>
-                        <MultiSelect
-                            options={options}
-                            value={selected}
-                            onChange={setSelected}
-                            labelledBy={"Art Style"}
-                            hasSelectAll={false}
+        <form className="create-profile" onSubmit={handleSubmit(onSubmit)}>
+            <fieldset className="create-profile__fieldset">
+                <label>
+                    <h3 className="create-profile__label" >Username:</h3>
+                    <input
+                        className="create-profile__text-input"
+                        type="text"
+                        name="username"
+                        ref={register({ required: true, maxLength: 80 })}
+                    />
+                </label>
+                <label >
+                    <h3 className="create-profile__label">First Name:</h3>
+                    <input
+                        className="create-profile__text-input"
+                        type="text"
+                        name="firstName"
+                        ref={register({ required: true, maxLength: 80 })}
+                    />
+                </label>
+                <label>
+                    <h3 className="create-profile__label">Last Name:</h3>
+                    <input
+                        className="create-profile__text-input"
+                        type="text"
+                        name="lastName"
+                        ref={register({ required: true, maxLength: 100 })}
+                    />
+                </label>
+                <label>
+                    <h3 className="create-profile__label">Bio:</h3>
+                    <textarea
+                        className="create-profile__text-area"
+                        name="bio"
+                        ref={register({ required: false, maxLength: 300 })}
+                    />
+                </label>
+            </fieldset>
+            <fieldset className="create-profile__fieldset">
+                <h3 className="create-profile__label">Are you a Tattoo Artist?</h3>
+                <label>
+                    <input
+                        className="create-profile__select"
+                        name="isArtist"
+                        type="checkbox"
+                        value="true"
+                        ref={register}
+                    /><p className="create-profile__select-text">Yes</p>
+                </label>
+                {ifArtist && (
+                    <div>
+                        <label>
+                            <h3 className="create-profile__label">Art Style:</h3>
+                            <MultiSelect
+                                options={options}
+                                value={selected}
+                                onChange={setSelected}
+                                labelledBy={"Art Style"}
+                                hasSelectAll={false}
+                            />
+                        </label>
+                        <h3 className="create-profile__label create-profile__label--booking">Booking Availability</h3>
+                        <label>
+                            <input
+                                className="create-profile__select"
+                                name="bookings"
+                                type="radio"
+                                value="open"
+                                ref={register}
+                            /><p className="create-profile__select-text">Open</p>
+                            <input
+                                className="create-profile__select"
+                                name="bookings"
+                                type="radio"
+                                value="waitlist"
+                                ref={register}
+                            /><p className="create-profile__select-text">Wait List</p>
+                            <input
+                                className="create-profile__select"
+                                name="bookings"
+                                type="radio"
+                                value="closed"
+                                ref={register}
+                            /><p className="create-profile__select-text">Books Closed</p>
+                        </label>
+                    </div>
+                )}
+                <div className="create-profile__upload-wrap">
+                    <label className="create-profile__upload-btn">
+                        <h3 className="create-profile__label">Upload Avatar:</h3>
+                        <input type="file"
+                            name="file"
+                            onChange={onFileChange}
+                            ref={register({ required: true })}
                         />
                     </label>
-                    <h3>Booking Availability</h3>
-                    <label>
-                        <input
-                            name="bookings"
-                            type="radio"
-                            value="open"
-                            ref={register}
-                        />Open Availability
-                        <input
-                            name="bookings"
-                            type="radio"
-                            value="waitlist"
-                            ref={register}
-                        />Wait List
-                        <input
-                            name="bookings"
-                            type="radio"
-                            value="closed"
-                            ref={register}
-                        />Books Closed
-                    </label>
+                    <div className="output">
+                        {error && <div className="error">{error}</div>}
+                        {file && <div>{file.name}</div>}
+                    </div>
                 </div>
-            )}
-            <label>
-                <h3>Upload Avatar</h3>
-                <input name="file"
-                    type="file"
-                    onChange={onFileChange}
-                    ref={register}
-                />
-            </label>
-            <br />
-            <button type="submit">CreateProfile</button>
+            </fieldset>
+            <button className="create-profile__submit" type="submit">Create Profile</button>
         </form>
     );
 }

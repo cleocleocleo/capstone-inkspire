@@ -21,9 +21,11 @@ const UserGrid = ({ searchParams }) => {
                         />
                     </div>
                     <div className="user-grid__details">
-                        <Link to={`/user/${doc.username}`}>
-                            <h1 className="user-grid__username">{doc.username}</h1>
-                        </Link>
+                        <h1 className="user-grid__username">
+                            <Link to={`/user/${doc.username}`} className="user-grid__link">
+                                {doc.username}
+                            </Link>
+                        </h1>                        
                     </div>
                 </motion.div>
             ))}

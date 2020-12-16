@@ -62,10 +62,13 @@ const ProfileDetails = ({ userInfo, url }) => {
                      <ArtistProfile userInfo={userInfo} />
                 }
                 { userInfo.isArtist === false &&
-                    <ImageGrid
-                        searchParams={query}
-                        setSelectedImg={setSelectedImg}
-                    />
+                    <>  
+                    <h1 className="profile__user-likes">Likes</h1>
+                        <ImageGrid
+                            searchParams={query}
+                            setSelectedImg={setSelectedImg}
+                        />
+                    </>
                 }
                 {selectedImg &&
                     <ImageModal

@@ -21,7 +21,7 @@ const CreateGallery = () => {
 
     return (
         <>
-            <h2>Your Image Galleries</h2>
+            <h1>Your Image Galleries</h1>
             <div className="create-gallery">
                 <h2 className="create-gallery__header">Add New Gallery</h2>
                 <form className="create-gallery__form" onSubmit={handleSubmit(handleCreate)}>

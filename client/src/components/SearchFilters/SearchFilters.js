@@ -89,11 +89,10 @@ const SearchFilters = ({ setSearchParams, searchType, setSearchType }) => {
                 <button className="search-filters__btn" type="submit">
                     Search
                 </button>
-                <button className=" search-filters__btn search-filters__btn--clear" onClick={handleClear}>
-                    Clear Search
-                </button>
             </form>
-            
+            <button className=" search-filters__btn search-filters__btn--clear" onClick={handleClear}>
+                Clear Search
+            </button>
         </aside>
     );
 }

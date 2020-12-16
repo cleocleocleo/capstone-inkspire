@@ -1,0 +1,87 @@
+@use '../../partials/mixins' as *;
+@use '../../partials/variables' as *;
+
+.create-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: $primary-light;
+    max-width: 68rem;
+    padding: 1.75rem;
+    border-radius: 10px;
+    margin-bottom: 4rem;
+    box-shadow: $layered-shadow;
+    margin: 1rem auto 0;
+
+    &__fieldset {
+        width: 40%;
+    }
+
+    &__label {
+        margin-bottom: 1rem;
+
+        &--booking {
+            margin-top: 3rem;
+        }
+    }
+
+    &__text-input {
+        width: 80%;
+        margin-bottom: 3rem;
+    }
+
+    &__text-area {
+        width: 80%;
+        height: 5rem;
+        background: white;
+        border-radius: 6px;
+        border: 2px solid $secondary-dark;
+        font-size: 1rem;
+        font-family: 'Karla', sans-serif;
+        color: $secondary-dark;
+        padding: 0.5rem;
+
+        &:focus {
+            border: none;
+            border: 2px solid $primary-accent;
+            outline: none;
+        }
+    }
+
+    &__select {
+        display: inline;
+        height: 13px;
+        margin: 0 1rem 3rem;
+    }
+
+    &__select-text {
+        display: inline;
+        margin: 0 1.25rem 1.5rem 0;
+    }
+
+    &__upload-wrap {
+        display: flex;
+        align-items: center;
+        margin-top:5.5rem;
+    }
+
+    &__upload-btn {
+        display: inline-block;
+        height: 2.25rem;
+        border: none;
+        border-radius: 6px;
+        background: $primary-accent;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        margin-right: 0.5rem;
+    }
+
+    &__submit {
+        width: 8rem;
+        height: 8rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        align-self: flex-start;
+    }
+}
