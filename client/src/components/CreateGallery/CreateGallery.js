@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 const CreateGallery = () => {
     const [user] = useState(auth().currentUser);
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
     const handleCreate = (data) => {
         const title = data.title;
@@ -17,6 +17,8 @@ const CreateGallery = () => {
             user: user.uid,
             createdAt,
         });
+        
+        reset();
     };
 
     return (
