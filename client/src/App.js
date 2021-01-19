@@ -1,7 +1,7 @@
 import './App.scss';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
-import Nav from './components/Nav/Nav';
+// import Nav from './components/Nav/Nav';
 import Splash from './pages/Splash';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
@@ -50,7 +50,7 @@ const App = () => {
 
     return isloading === true ? <h2>Loading...</h2> : (
         <BrowserRouter>
-            <Nav />
+            {/* <Nav /> */}
                 <Switch>
                     <PrivateRoute exact path="/" authenticated={authenticated} component={Splash}></PrivateRoute>
                     <PublicRoute path="/signup" authenticated={authenticated} component={Splash}></PublicRoute>

@@ -6,6 +6,7 @@ import AddImage from '../AddImage/AddImage';
 import ImageModal from '../ImageModal/ImageModal';
 import { v4 as uuidv4 } from 'uuid';
 import { motion } from 'framer-motion';
+import Nav from '../Nav/Nav';
 
 const Gallery = props => {
     const [images, setImages] = useState([]);
@@ -30,36 +31,39 @@ const Gallery = props => {
     }, [gallery]);
 
     return (
-        <div className="gallery">
-            <header>
-                <Link to="/profile" className="gallery__go-back">↢ Back to Profile</Link>
-                <h1 className="gallery__title">{galleryName}</h1>
-            </header>
-            <div className="gallery__view">
-                {images.map((image) => (
-                    <motion.div className="gallery__container"
-                        key={uuidv4()}
-                        layout
-                        onClick={() => setSelectedImg(image)}>
-                        <motion.img className="gallery__img"
-                            src={image.url}
-                            alt={image.title}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1 }}/>
-                    </motion.div>
-                ))}
+        <>
+            <Nav />
+            <div className="gallery">
+                <header>
+                    <Link to="/profile" className="gallery__go-back">↢ Back to Profile</Link>
+                    <h1 className="gallery__title">{galleryName}</h1>
+                </header>
+                <div className="gallery__view">
+                    {images.map((image) => (
+                        <motion.div className="gallery__container"
+                            key={uuidv4()}
+                            layout
+                            onClick={() => setSelectedImg(image)}>
+                            <motion.img className="gallery__img"
+                                src={image.url}
+                                alt={image.title}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1 }}/>
+                        </motion.div>
+                    ))}
+                </div>
+                <div>
+                    <AddImage gallery={gallery} />
+                </div>
+                    {selectedImg &&
+                        <ImageModal
+                            selectedImg={selectedImg}
+                            setSelectedImg={setSelectedImg}
+                        />
+                    }
             </div>
-            <div>
-                <AddImage gallery={gallery} />
-            </div>
-                {selectedImg &&
-                    <ImageModal
-                        selectedImg={selectedImg}
-                        setSelectedImg={setSelectedImg}
-                    />
-                }
-        </div>
+        </>
     );
 }
 

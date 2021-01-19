@@ -4,6 +4,7 @@ import ImageGrid from '../components/ImageGrid/ImageGrid';
 import UserGrid from '../components/UserGrid/UserGrid';
 import ImageModal from '../components/ImageModal/ImageModal';
 import SearchFilters from '../components/SearchFilters/SearchFilters';
+import Nav from '../components/Nav/Nav';
 
 const initialParams = {
     collection: 'images',
@@ -20,30 +21,33 @@ const Search = () => {
     const [searchParams, setSearchParams] = useState(initialParams);
 
     return (
-        <div className="search">
-            <SearchFilters
-                setSearchParams={setSearchParams}
-                searchType={searchType}
-                setSearchType={setSearchType}
-            />
-            { searchType === 'images' &&
-                <ImageGrid
-                    setSelectedImg={setSelectedImg}
-                    searchParams={searchParams}
+        <>
+            <Nav />
+            <div className="search">
+                <SearchFilters
+                    setSearchParams={setSearchParams}
+                    searchType={searchType}
+                    setSearchType={setSearchType}
                 />
-            }
-            { searchType === 'users' &&
-                <UserGrid
-                    searchParams={searchParams}
-                />
-            }
-            { selectedImg &&
-                <ImageModal
-                    selectedImg={selectedImg}
-                    setSelectedImg={setSelectedImg}
-                />
-            }
-        </div>
+                { searchType === 'images' &&
+                    <ImageGrid
+                        setSelectedImg={setSelectedImg}
+                        searchParams={searchParams}
+                    />
+                }
+                { searchType === 'users' &&
+                    <UserGrid
+                        searchParams={searchParams}
+                    />
+                }
+                { selectedImg &&
+                    <ImageModal
+                        selectedImg={selectedImg}
+                        setSelectedImg={setSelectedImg}
+                    />
+                }
+            </div>
+        </>
     );
 }
 

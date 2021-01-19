@@ -4,6 +4,8 @@ import { useState } from 'react';
 import ImageModal from '../components/ImageModal/ImageModal';
 import ImageGrid from '../components/ImageGrid/ImageGrid';
 import { useRouteMatch } from 'react-router-dom';
+import Nav from '../components/Nav/Nav';
+import './User.scss';
 
 const User = () => {
     const [selectedImg, setSelectedImg] = useState(null);
@@ -19,29 +21,32 @@ const User = () => {
     };
 
     return !docs[0] ? <h2>Loading...</h2> : (
-        <div>
-            <div>
-                <ProfileDetails
-                    userInfo={userInfo}
-                    url={match.url}
-                    setSelectedImg={setSelectedImg}
-                />
-            </div>
-            { docs[0].isArtist &&
-                <>
-                    <ImageGrid
-                        searchParams={query}
+        <>
+            <Nav />
+            <div classname="user">
+                <div>
+                    <ProfileDetails
+                        userInfo={userInfo}
+                        url={match.url}
                         setSelectedImg={setSelectedImg}
                     />
-                    { selectedImg &&
-                        <ImageModal
-                            selectedImg={selectedImg}
+                </div>
+                { docs[0].isArtist &&
+                    <div className="user__imgs">
+                        <ImageGrid
+                            searchParams={query}
                             setSelectedImg={setSelectedImg}
                         />
-                    }
-                </>
-            }
-        </div>
+                        { selectedImg &&
+                            <ImageModal
+                                selectedImg={selectedImg}
+                                setSelectedImg={setSelectedImg}
+                            />
+                        }
+                    </div>
+                }
+            </div>
+        </>
     );
 }
  

@@ -2,6 +2,7 @@
 @use '../../partials/variables' as *;
 
 .gallery {
+    padding: 2.5rem;
     
     &__go-back {
         color: $primary-accent;

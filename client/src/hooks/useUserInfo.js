@@ -3,7 +3,7 @@ import { auth, firestore } from '../services/firebase';
 
 const useUserInfo = () => {
     const [user] = useState(auth().currentUser);
-    const [userInfo, setUserInfo] = useState({});
+    const [userInfo, setUserInfo] = useState(undefined);
 
     useEffect(() => {
         if (user) {
@@ -13,7 +13,7 @@ const useUserInfo = () => {
                 });
             return () => unsub()
         } else {
-            setUserInfo({});
+            setUserInfo(undefined);
         }
     }, [user])
     return { userInfo };

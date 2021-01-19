@@ -5,15 +5,16 @@ import useUserInfo from '../../hooks/useUserInfo';
 import userIcon from '../../assets/icons/user.svg';
 import { logout } from '../../helpers/auth';
 
+
 const Nav = () => {
-    const [profilePic, setProfilePic] = useState(userIcon);
+    const [profilePic, setProfilePic] = useState();
     const { userInfo } = useUserInfo();
 
     useEffect(() => {
-        userInfo.username
+        userInfo
             ? setProfilePic(userInfo.profileImg)
             : setProfilePic(userIcon);
-    }, [userInfo.username, userInfo.profileImg])
+    }, [userInfo])
 
     const logoutLink = !userInfo
         ? "nav__link nav__link--hidden"
@@ -22,12 +23,11 @@ const Nav = () => {
     return ( 
         <header>
             <nav className="nav">
-                
-                    <h1 className="nav__title">
-                        <Link to="/">
-                            Inkspire
-                         </Link>
-                    </h1>
+                <h1 className="nav__title">
+                    <Link to="/">
+                        Inkspire
+                    </Link>
+                </h1>
                 <div className="nav__list">
                     <h4 className="nav__link"><Link to="/profile">Profile</Link></h4>
                     <h4 className="nav__link"><Link to="/search">Search</Link></h4>

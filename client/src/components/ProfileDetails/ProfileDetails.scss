@@ -2,6 +2,8 @@
 @use '../../partials/variables' as *;
 
 .profile {
+    padding: 2.5rem;
+
     &__details {
         background: $primary-light;
         display: flex;
